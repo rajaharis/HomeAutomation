@@ -7,7 +7,7 @@ import numpy as np
 import os
 FaceRecg=Blueprint("route ",__name__)
 from sms import alert
-from pyparsing import condition_as_parse_action 
+# from pyparsing import condition_as_parse_action 
 @FaceRecg.route('/')
 def faceRec():
     recognizer = cv2.face.LBPHFaceRecognizer_create()
@@ -19,7 +19,7 @@ def faceRec():
     id = 0
     count=0
 # names related to ids: example ==> Marcelo: id=1,  etc
-    names = ['None','haris'] 
+    names = ['None','haris','danish'] 
 # Initialize and start realtime video capture
     cam = cv2.VideoCapture(0)
     cam.set(3, 640) # set video widht
@@ -58,18 +58,16 @@ def faceRec():
                         print("Not Recognized Please try again",count)
                       
                     elif(count>3):
-                        cv2.imshow('image', img)
                         alert()
                         cv2.imwrite("dataset/Unknown." + str(time)+ ".jpg", img)
-                    break
-                        
-                        
+                        cam.release()
 
+                        break
             
-        # else:
-        #     id = "unknown"
-        #     confidence = "  {0}%".format(round(100 - confidence))
-        #     cv2.imshow('image', img)
+            # else:
+            #     id = "unknown"
+            #     confidence = "  {0}%".format(round(100 - confidence))
+              
         
             cv2.putText(
                         img, 
@@ -94,7 +92,9 @@ def faceRec():
         k = cv2.waitKey(10) & 0xff # Press 'ESC' for exiting video
         if k == 27:
             break
+        
 # Do a bit of cleanup
-    print("\n [INFO] Exiting Program and cleanup stuff")
+    print("\n [INFO] Exiting Program and cleanup stuff"),
     cam.release()
     cv2.destroyAllWindows()
+       

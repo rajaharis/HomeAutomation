@@ -6,6 +6,9 @@ from faceRecog import FaceRecg
 
 app = Flask(__name__)
 app.register_blueprint(FaceRecg)
+# @app.route('/faceCap')
+# def faceCap():
+
       
 if __name__ == "__main__":
   app.run(host="0.0.0.0" ,debug=True)
