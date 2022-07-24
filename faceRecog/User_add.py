@@ -1,3 +1,4 @@
+
 ''''
 Capture multiple Faces from multiple users to be stored on a DataBase (dataset directory)
 	==> Faces will be stored on a directory: dataset/ (if does not exist, pls create one)
@@ -15,6 +16,8 @@ import os
 cam = cv2.VideoCapture(0)
 cam.set(3, 640) # set video width
 cam.set(4, 480) # set video height
+minW = 0.2*cam.get(3)
+minH = 0.2*cam.get(4)
 
 face_detector = cv2.CascadeClassifier('hash.xml')
 
@@ -30,7 +33,9 @@ while(True):
     ret, img = cam.read()
     img = cv2.flip(img, 1) # flip video image vertically
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    faces = face_detector.detectMultiScale(gray, 1.3, 5)
+    faces = face_detector.detectMultiScale(gray, scaleFactor = 1.2,
+        minNeighbors = 5,
+        minSize = (int(minW), int(minH)) )
 
     for (x,y,w,h) in faces:
 
@@ -52,4 +57,6 @@ while(True):
 print("\n [INFO] Exiting Program and cleanup stuff")
 cam.release()
 cv2.destroyAllWindows()
+
+
 
