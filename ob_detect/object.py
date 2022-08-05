@@ -1,7 +1,5 @@
 import cv2
 
-from flask import Flask, Response
-app = Flask(__name__)
 
 
 classNames = []
@@ -66,12 +64,3 @@ def video():
             frame = buffer.tobytes()
         yield(b'--frame\r\n'b'Content-Type: image/jpeg\r\n\r\n' + frame+ b'\r\n')
         
-        
-        # cv2.imshow("Output",result)
-        # cv2.waitKey(10)
-@app.route('/video')
-def videoStream():
-    return Response(video(), mimetype='multipart/x-mixed-replace; boundary=frame')
-
-if __name__ == "__main__":
- app.run(host=('0.0.0.0'),port=5000)

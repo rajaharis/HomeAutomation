@@ -19,7 +19,7 @@ cam.set(4, 480) # set video height
 minW = 0.2*cam.get(3)
 minH = 0.2*cam.get(4)
 
-face_detector = cv2.CascadeClassifier('hash.xml')
+face_detector = cv2.CascadeClassifier('../hash.xml')
 
 # For each person, enter one numeric face id
 face_id = input('\n enter user id end press <return> ==>  ')
@@ -43,14 +43,14 @@ while(True):
         count += 1
 
         # Save the captured image into the datasets folder
-        cv2.imwrite("dataset/User." + str(face_id) + '.' + str(count) + ".jpg", gray[y:y+h,x:x+w])
+        cv2.imwrite("../dataset/User." + str(face_id) + '.' + str(count) + ".jpg", gray[y:y+h,x:x+w])
 
         cv2.imshow('image', img)
 
     k = cv2.waitKey(100) & 0xff # Press 'ESC' for exiting video
     if k == 27:
         break
-    elif count >= 10: # Take 10 face sample and stop video
+    elif count >= 30: # Take 30 face sample and stop video
          break
 
 # Do a bit of cleanup
